@@ -16,6 +16,8 @@ state.create = function(){
   Kiwi.State.prototype.create.call(this);
 
   this.character = new Kiwi.GameObjects.Sprite(this, this.textures['angry-imp'], 50, 50);
+  this.character.animation.add('idle-right', [12], 0.1, false);
+  this.character.animation.play('idle-right');
   this.addChild(this.character);
 }
 
