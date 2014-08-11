@@ -1,0 +1,29 @@
+<html>
+<body>
+<script src="kiwi.js"></script>
+<script type="text/javascript">
+
+var game = new Kiwi.Game();
+var state = new Kiwi.State('state');
+
+state.preload = function(){
+  Kiwi.State.prototype.preload.call(this);
+}
+
+state.create = function(){
+  Kiwi.State.prototype.create.call(this);
+}
+
+state.update = function(){
+  Kiwi.State.prototype.update.call(this);
+};
+
+game.states.addState(state, true);
+
+</script>
+<style>
+body { background: black;}
+body > div { margin: auto;}
+</style>
+</body>
+</html>
