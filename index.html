@@ -8,10 +8,15 @@ var state = new Kiwi.State('state');
 
 state.preload = function(){
   Kiwi.State.prototype.preload.call(this);
+
+  this.addSpriteSheet('angry-imp', 'character.png', 64, 64);
 }
 
 state.create = function(){
   Kiwi.State.prototype.create.call(this);
+
+  this.character = new Kiwi.GameObjects.Sprite(this, this.textures['angry-imp'], 50, 50);
+  this.addChild(this.character);
 }
 
 state.update = function(){
