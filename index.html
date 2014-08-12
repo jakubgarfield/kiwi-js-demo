@@ -47,16 +47,31 @@ state.update = function(){
   Kiwi.State.prototype.update.call(this);
 
   if (this.space.isDown) {
+    this.character.animation.play('attack-' + this.character.facing);
   }
   else if (this.downKey.isDown || this.upKey.isDown || this.leftKey.isDown || this.rightKey.isDown) {
     if (this.downKey.isDown) {
+      this.character.facing = 'down';
+      if (this.character.transform.y < 536) this.character.transform.y += 3;
     }
     else if (this.upKey.isDown) {
+      this.character.facing = 'up';
+      if (this.character.transform.y > 3) this.character.transform.y -= 3;
     }
     else if (this.leftKey.isDown) {
+      this.character.facing = 'left';
+      if (this.character.transform.x > 3) this.character.transform.x -= 3;
     }
     else if (this.rightKey.isDown) {
+      this.character.facing = 'right';
+      if (this.character.transform.x < 736) this.character.transform.x += 3;
     }
+
+    if (this.character.animation.currentAnimation.name != 'move-' + this.character.facing)
+      this.character.animation.play('move-' + this.character.facing);
+  }
+  else if (this.character.animation.currentAnimation.name.indexOf('attack') != 0) {
+    this.character.animation.play('idle' + this.character.facing);
   }
 };
 
