@@ -3,6 +3,16 @@
 <script src="kiwi.js"></script>
 <script type="text/javascript">
 
+var SpriteWithPhysics = function(state, texture, x, y) {
+  Kiwi.GameObjects.Sprite.call(this, state, texture, x, y);
+  this.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this, this.box));
+  this.update = function() {
+    Kiwi.GameObjects.Sprite.prototype.update.call(this);
+    this.physics.update();
+  }
+}
+Kiwi.extend(SpriteWithPhysics, Kiwi.GameObjects.Sprite);
+
 var game = new Kiwi.Game();
 var state = new Kiwi.State('state');
 
@@ -18,12 +28,12 @@ state.preload = function(){
 state.create = function(){
   Kiwi.State.prototype.create.call(this);
 
-  this.opponent = new Kiwi.GameObjects.Sprite(this, this.textures['hippie-imp'], 640, 480);
+  this.opponent = new SpriteWithPhysics(this, this.textures['hippie-imp'], 640, 480);
   this.opponent.animation.add('idle', [28], 0.1, false);
   this.opponent.animation.play('idle');
   this.addChild(this.opponent);
 
-  this.character = new Kiwi.GameObjects.Sprite(this, this.textures['angry-imp'], 50, 50);
+  this.character = new SpriteWithPhysics(this, this.textures['angry-imp'], 60, 40);
 
   this.character.animation.add('idle-left', [4], 0.1, false);
   this.character.animation.add('idle-right', [12], 0.1, false);
@@ -61,6 +71,9 @@ state.update = function(){
   if (this.space.isDown) {
     this.character.animation.play('attack-' + this.character.facing);
     this.character.forkChop.play();
+
+    if (this.character.physics.overlaps(this.opponent)) {
+    }
   }
   else if (this.downKey.isDown || this.upKey.isDown || this.leftKey.isDown || this.rightKey.isDown) {
     if (this.downKey.isDown) {
