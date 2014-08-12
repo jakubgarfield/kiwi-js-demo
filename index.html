@@ -11,6 +11,8 @@ state.preload = function(){
 
   this.addSpriteSheet('angry-imp', 'character.png', 64, 64);
   this.addSpriteSheet('hippie-imp', 'opponent.png', 64, 64);
+  this.addAudio('background-music', 'background.ogg');
+  this.addAudio('slice', 'knifeSlice.ogg');
 }
 
 state.create = function(){
@@ -40,6 +42,7 @@ state.create = function(){
 
   this.character.facing = 'right';
   this.character.animation.play('idle-right');
+  this.character.forkChop = new Kiwi.Sound.Audio(this.game, 'slice', 0.2, false);
   this.addChild(this.character);
 
   this.leftKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.LEFT);
@@ -47,6 +50,9 @@ state.create = function(){
   this.upKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.UP);
   this.downKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.DOWN);
   this.space = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.SPACEBAR);
+
+  this.backgroundMusic = new Kiwi.Sound.Audio(this.game, 'background-music', 0.5, true);
+  this.backgroundMusic.play();
 }
 
 state.update = function(){
@@ -54,6 +60,7 @@ state.update = function(){
 
   if (this.space.isDown) {
     this.character.animation.play('attack-' + this.character.facing);
+    this.character.forkChop.play();
   }
   else if (this.downKey.isDown || this.upKey.isDown || this.leftKey.isDown || this.rightKey.isDown) {
     if (this.downKey.isDown) {
