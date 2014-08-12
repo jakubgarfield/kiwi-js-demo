@@ -10,10 +10,16 @@ state.preload = function(){
   Kiwi.State.prototype.preload.call(this);
 
   this.addSpriteSheet('angry-imp', 'character.png', 64, 64);
+  this.addSpriteSheet('hippie-imp', 'opponent.png', 64, 64);
 }
 
 state.create = function(){
   Kiwi.State.prototype.create.call(this);
+
+  this.opponent = new Kiwi.GameObjects.Sprite(this, this.textures['hippie-imp'], 640, 480);
+  this.opponent.animation.add('idle', [28], 0.1, false);
+  this.opponent.animation.play('idle');
+  this.addChild(this.opponent);
 
   this.character = new Kiwi.GameObjects.Sprite(this, this.textures['angry-imp'], 50, 50);
 
