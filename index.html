@@ -35,10 +35,29 @@ state.create = function(){
   this.character.facing = 'right';
   this.character.animation.play('idle-right');
   this.addChild(this.character);
+
+  this.leftKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.LEFT);
+  this.rightKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.RIGHT);
+  this.upKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.UP);
+  this.downKey = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.DOWN);
+  this.space = this.game.input.keyboard.addKey(Kiwi.Input.Keycodes.SPACEBAR);
 }
 
 state.update = function(){
   Kiwi.State.prototype.update.call(this);
+
+  if (this.space.isDown) {
+  }
+  else if (this.downKey.isDown || this.upKey.isDown || this.leftKey.isDown || this.rightKey.isDown) {
+    if (this.downKey.isDown) {
+    }
+    else if (this.upKey.isDown) {
+    }
+    else if (this.leftKey.isDown) {
+    }
+    else if (this.rightKey.isDown) {
+    }
+  }
 };
 
 game.states.addState(state, true);
