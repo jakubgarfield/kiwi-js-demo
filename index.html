@@ -23,6 +23,7 @@ state.preload = function(){
   this.addSpriteSheet('hippie-imp', 'opponent.png', 64, 64);
   this.addAudio('background-music', 'background.ogg');
   this.addAudio('slice', 'knifeSlice.ogg');
+  this.addAudio('death', 'death.wav');
 }
 
 state.create = function(){
@@ -30,7 +31,9 @@ state.create = function(){
 
   this.opponent = new SpriteWithPhysics(this, this.textures['hippie-imp'], 640, 480);
   this.opponent.animation.add('idle', [28], 0.1, false);
+  this.opponent.animation.add('die', [28, 29, 30, 31, 32, 33, 34, 6], 0.1, false);
   this.opponent.animation.play('idle');
+  this.opponent.deathSqueek = new Kiwi.Sound.Audio(this.game, 'death', 0.2, false);
   this.addChild(this.opponent);
 
   this.character = new SpriteWithPhysics(this, this.textures['angry-imp'], 60, 40);
@@ -73,6 +76,8 @@ state.update = function(){
     this.character.forkChop.play();
 
     if (this.character.physics.overlaps(this.opponent)) {
+      this.opponent.deathSqueek.play();
+      this.opponent.animation.play('die');
     }
   }
   else if (this.downKey.isDown || this.upKey.isDown || this.leftKey.isDown || this.rightKey.isDown) {
