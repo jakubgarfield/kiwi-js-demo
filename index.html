@@ -23,12 +23,12 @@ state.preload = function(){
   this.addSpriteSheet('hippie-imp', 'assets/images/opponent.png', 64, 64);
   this.addAudio('background-music', 'assets/sounds/background.ogg');
   this.addAudio('slice', 'assets/sounds/knifeSlice.ogg');
-  this.addAudio('death', 'assets/sounds/death.wav');
+  this.addAudio('death', 'assets/sounds/death.ogg');
 }
 
 state.create = function(){
   Kiwi.State.prototype.create.call(this);
-  
+
   this.bg = new Kiwi.GameObjects.Sprite(this, this.textures.background, 0, 0);
   this.addChild(this.bg);
 
