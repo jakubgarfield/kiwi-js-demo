@@ -18,16 +18,19 @@ var state = new Kiwi.State('state');
 
 state.preload = function(){
   Kiwi.State.prototype.preload.call(this);
-
-  this.addSpriteSheet('angry-imp', 'character.png', 64, 64);
-  this.addSpriteSheet('hippie-imp', 'opponent.png', 64, 64);
-  this.addAudio('background-music', 'background.ogg');
-  this.addAudio('slice', 'knifeSlice.ogg');
-  this.addAudio('death', 'death.wav');
+  this.addSpriteSheet('background', 'assets/images/background.png', 800, 600);
+  this.addSpriteSheet('angry-imp', 'assets/images/character.png', 64, 64);
+  this.addSpriteSheet('hippie-imp', 'assets/images/opponent.png', 64, 64);
+  this.addAudio('background-music', 'assets/sounds/background.ogg');
+  this.addAudio('slice', 'assets/sounds/knifeSlice.ogg');
+  this.addAudio('death', 'assets/sounds/death.wav');
 }
 
 state.create = function(){
   Kiwi.State.prototype.create.call(this);
+  
+  this.bg = new Kiwi.GameObjects.Sprite(this, this.textures.background, 0, 0);
+  this.addChild(this.bg);
 
   this.opponent = new SpriteWithPhysics(this, this.textures['hippie-imp'], 640, 480);
   this.opponent.animation.add('idle', [28], 0.1, false);
